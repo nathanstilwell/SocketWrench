@@ -1,172 +1,251 @@
 define([], function () {
+  var proto;
 
-  function SocketWrench (addr) {
-    var self = this;
+  function SocketWrench (options) {
+
+    var
+      defaults = {
+        heartbeatInterval : 3000,
+        heartbeatMessage : { "heartbeat" : "beat" },
+        retryAttempts : 5,
+        retryTimeout : 2000,
+        sendFullMessages : false,
+        autoConnect : false
+      },
+      events = {},
+      opts = {},
+      socket,
+      heartbeat,
+      forceClose,
+      attemptedReconnects = 0,
+      self = this;
 
 
+    function sendHeartbeat () {
+      socket.send(JSON.stringify(opts.heartbeatMessage));
+      heartbeat = setTimeout(sendHeartbeat, opts.heartbeatInterval);
+    }
 
+   function onSocketOpen () {
+      self.emit(events, 'open');
+      attemptedReconnects = 0;
+      sendHeartbeat();
+    }
 
+    function onSocketClose () {
+      clearTimeout(heartbeat);
 
-
-
-    function emit (event, args, scope) {
-      scope = scope || window;
-      args  = args  || [];
-
-      if ('[object Array]' !== Object.prototype.toString.call(args)) {
-        args = [args];
-      }
-
-      var i, l;
-
-      if (events[event]) {
-        for (i = 0, l = events[event].length; i < l; i += 1) {
-          events[event][i].apply(scope, args);
+      if (!forceClose) {
+        attemptedReconnects += 1;
+        self.emit(events, 'fail', attemptedReconnects);
+        if (attemptedReconnects <= opts.retryAttempts) {
+          setTimeout(self.open, self.decay(opts.retryTimeout, attemptedReconnects));
+        } else {
+          self.emit('error', 'All reconnection attempts have failed');
         }
+      } else {
+        self.emit('close');
       }
-    }
 
-    function listen (event, callback) {
-      // if we don't have an array of callbacks for events[event], create one
-      (events[event] = events[event] || []).push(callback);
-      return [event, callback];
-    }
-
-    function unlisten (handle) {
-      var
-        event = handle[0],
-        callback = handle[1];
-
-      if (event in events) {
-        events[event].splice(events[event].indexOf(callback), 1);
-      }
-    }
-
-
-
-
-
-
-    function onSocketOpen () {
-      emit('open');
-    }
+      self.emit(events, 'close');
+    } // onSocketClose
 
     function onSocketMessage (e) {
       var
         message = JSON.parse(e.data),
-        events,
+        eventsToEmit,
         data,
         i,
         l;
 
       // determine which events to emit
       if (message.type) {
-        events = [message.type, 'message'];
+        eventsToEmit = [message.type, 'message'];
       } else {
-        events = ['message'];
+        eventsToEmit = ['message'];
       }
 
       // determine which data to send
-      if (self.opts.sendFullMessages) {
+      if (opts.sendFullMessages) {
         data = e;
         data.parsedData = JSON.parse(e.data);
       } else {
         data = message;
       }
 
-      for (i = 0, l = events.length; i < l; i += 1) {
-        emit(events[i], data);
+      for (i = 0, l = eventsToEmit.length; i < l; i += 1) {
+        self.emit(events, eventsToEmit[i], data);
       }
     } // onSocketMessage
 
-
-    function start () {
-      var connectUrl = addr;
-
-      self.socket = new WebSocket(connectUrl);
-
-      // hook up callbacks
-      self.socket.onopen = onSocketOpen;
-      self.socket.onmessage = onSocketMessage;
+    function onSocketError (e) {
+      self.emit(events, 'error', e);
+    }
 
 
-      (function whenReady(){
-        if (self.isReady()) {
-          emit('ready');
-        } else {
-          // what if we're never ready?
-          setTimeout(whenReady, 10);
-        }
-      }());
-    } // start
 
 
-    if (typeof options === undefined) {
+
+    //
+    // public api
+    //
+
+
+
+    this.supported = (typeof window.WebSocket !== "undefined");
+
+    // if we don't have Web Socket support then just stop
+    if (!this.supported) {
       return;
     }
 
-    this.events = {};
+    this.isReady = function isReady () {
+      return socket !== undefined && socket.readyState === 1;
+    };
 
-    this.attemptedReconnects = 0;
-    this.forceClose = false;
-    this.opts = {};
+    this.open = function open () {
+        var
+        connectUrl,
+        property,
+        connectionData,
+        parameters = [],
+        self = this;
+
+      connectUrl = opts.socketUrl;
+
+      if (opts.connectionData) {
+        connectionData = opts.connectionData;
+        connectUrl += '?';
+
+        for (property in connectionData) {
+          if (connectionData.hasOwnProperty(property)) {
+            parameters.push(property + '=' + connectionData[property]);
+          }
+        }
+
+        connectUrl += parameters.join('&');
+      }
+
+      // create new WebSocket
+      socket = new WebSocket(connectUrl);
+
+      // hook up callbacks
+      socket.onopen = onSocketOpen;
+      socket.onmessage = onSocketMessage;
+      socket.onerror = onSocketError;
+      socket.onclose = onSocketClose;
 
 
-    start();
+      function amIReady () {
+        return self.isReady();
+      }
 
+      function canIemitThis () {
+          self.emit(events, 'ready');
+      }
 
-  } // Socket Wrench
+      function whenReady(){
+        if (amIReady()) {
+          canIemitThis();
+        } else {
+          // what if we're never ready?
+          setTimeout(whenReady, 100);
+        }
+      }
 
+      whenReady();
 
-  SocketWrench.prototype.isReady = function isReady () {
-    return this.socket !== undefined && this.socket.readyState === 1;
+    };
+
+    this.close = function close () {
+      forceClose = true;
+      socket.close();
+    };
+
+    this.on = function on (event, callback) {
+      (events[event] = events[event] || []).push(callback);
+      return [event, callback];
+    };
+
+    this.off = function off (handle) {
+      var
+         event = handle[0],
+         callback = handle[1];
+
+      if (event in events) {
+        events[event].splice(events[event].indexOf(callback), 1);
+      }
+    };
+
+    this.send = function send (msg) {
+      socket.send(JSON.stringify(msg));
+    };
+
+    //
+    //  init
+    //
+
+    if (typeof options === 'string') {
+      opts = this.extend({}, defaults, { socketUrl : options});
+    }
+
+    if (typeof options === 'object') {
+      opts = this.extend({}, defaults, options);
+    }
+
+    if (opts.autoConnect) {
+      this.start();
+    }
+
+///////////////////////////////////////////////
+  } // Socket Wrench Constructor
+///////////////////////////////////////////////
+
+  proto = SocketWrench.prototype;
+
+  proto.emit = function emit (events, event, args, scope) {
+    scope = scope || window;
+    args  = args  || [];
+
+    if ('[object Array]' !== Object.prototype.toString.call(args)) {
+      args = [args];
+    }
+
+    var i, l;
+
+    if (events[event]) {
+      for (i = 0, l = events[event].length; i < l; i += 1) {
+        events[event][i].apply(scope, args);
+      }
+    }
+  }; // proto.emit
+
+  proto.extend = function extend (obj) {
+    var
+      i,
+      l,
+      prop,
+      source,
+      extentionObjects;
+
+    extentionObjects = Array.prototype.slice.call(arguments, 1);
+
+    for (i = 0, l = extentionObjects.length; i < l; i += 1) {
+      source = extentionObjects[i];
+      if (source) {
+        for (prop in source) {
+          obj[prop] = source[prop];
+        }
+      }
+    }
+
+    return obj;
   };
 
-  SocketWrench.prototype.on = function on (key, callback) {
-    // how?
-    listen(key, callback);
+  proto.decay = function decay (timeout, attempts) {
+    return timeout * attempts;
   };
-
-
-  SocketWrench.prototype.off = function off (handle) {
-    // how?
-    unlisten(handle);
-  };
-
-
-  SocketWrench.prototype.open = function open () {
-    // how?
-    start();
-  };
-
-
-
-
-
 
   return SocketWrench;
+
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
