@@ -1,4 +1,4 @@
-define([], function () {
+(function (exports) {
   var proto;
 
   function SocketWrench (options) {
@@ -246,6 +246,6 @@ define([], function () {
     return timeout * attempts;
   };
 
-  return SocketWrench;
+  exports.SocketWrench = SocketWrench;
 
-});
+}('object' === typeof exports && exports || this));
