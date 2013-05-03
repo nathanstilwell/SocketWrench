@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Socket Wrench</title>
+  <style>
+    html, body{
+      background-color: #222;
+      color: #ebebe0;
+      font-family: sans-serif;
+      font-size: 24px;
+      height: 100%;
+      width: 100%;
+    }
+    .page-container {
+      display: table;
+      width: 100%;
+      height: 100%;
+    }
+    .page-content {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+    }
+    .header {
+      font-size: 3.5em
+    }
+    .subhead {
+      font-family: monospace;
+      font-size: 1em;
+      font-weight: normal;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <section class="page-container"><section class="page-content">
+
+    <h1 class="header">Socket Wrench</h1>
+    <h2 class="subhead">open your console</h2>
+
+  </section></section> <!-- containers -->
+
+<!--
+  <script src="vendor/require.js"></script>
+  <script>
+    require.config({
+
+    });
+
+    require(['socket-wrench'], function (Wrench) {
+      window.w = new Wrench({
+        socketUrl : 'ws://localhost.com:4014',
+        autoConnect : false
+      });
+    });
+  </script>
+-->
+
+  <script src="lib/socket-wrench.js"></script>
+  <script>
+    window.w = new SocketWrench({
+      socketUrl : 'ws://localhost.com:4014',
+      autoConnect : false
+    });
+
+    // test code here.
+  </script>
+</body>
+</html>
