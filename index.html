@@ -42,30 +42,16 @@
 
   </section></section> <!-- containers -->
 
-<!--
   <script src="vendor/require.js"></script>
   <script>
-    require.config({
+    // require.config({});
 
-    });
-
-    require(['socket-wrench'], function (Wrench) {
+    require(['lib/socket-wrench'], function (Wrench) {
       window.w = new Wrench({
         socketUrl : 'ws://localhost.com:4014',
         autoConnect : false
       });
     });
-  </script>
--->
-
-  <script src="lib/socket-wrench.js"></script>
-  <script>
-    window.w = new SocketWrench({
-      socketUrl : 'ws://localhost.com:4014',
-      autoConnect : false
-    });
-
-    // test code here.
   </script>
 </body>
 </html>
