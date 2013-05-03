@@ -49,8 +49,28 @@
     require(['lib/socket-wrench'], function (Wrench) {
       window.w = new Wrench({
         socketUrl : 'ws://localhost:4014',
-        autoConnect : false
+        autoConnect : true
       });
+
+        w.on('open', function () {
+          console.log('the Socket Wrench opened the socket');
+        });
+
+        w.on('close', function () {
+          console.log('the Socket Wrench closed the socket');
+        });
+
+        w.on('message', function (e) {
+          console.log('the Socket Wrench has received a message');
+          console.log(e);
+        });
+
+        w.open();
+
+        w.on('ready', function onReady () {
+          w.send("message");
+        });
+
     });
   </script>
 </body>
