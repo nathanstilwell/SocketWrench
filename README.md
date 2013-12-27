@@ -164,7 +164,9 @@ If the socket has attempted reconnect the maximum number of times, an
 
 ## Heartbeats
 
-To give your server the opportunity to close abandoned connections, Socket Wrench will send a heartbeat at the configured interval. You may override what this message looks like and the interval by passing in config options.
+To give your server the opportunity to close abandoned connections, Socket Wrench will send a heartbeat at the configured interval. By default Socket Wrench will send a "pong" to the server every 30 seconds as well as repond to a "ping" message with a "pong".
+
+You may override what this message looks like (as JSON if you like) and the interval by passing in config options.
 
     var socket = new SocketWrench({
       socketUrl: 'ws://my-socket-server.com',
@@ -174,4 +176,4 @@ To give your server the opportunity to close abandoned connections, Socket Wrenc
         currentMood : 'happy',
         outlookOnLife : 'good'
       }
-    })
+    });

@@ -49,53 +49,41 @@
 
     require(['lib/socket-wrench'], function (Wrench) {
       var messageButton = document.getElementById("send-message");
-      window.w = new Wrench({
-        socketUrl : 'ws://localhost:4014',
-        autoConnect : false
-      });
+      // window.w = new Wrench({
+      //   socketUrl : 'ws://localhost:4014',
+      //   autoConnect : false
+      // });
 
-        w.on('open', function () {
-          console.log('the Socket Wrench opened the socket');
-        });
+      // w.on('open', function () { console.log('the Socket Wrench opened the socket'); });
+      // w.on('ready', function () { console.log('Socket is ready'); });
+      // w.on('fail', function (attempts) { console.log('fail', attempts); });
+      // w.on('error', function (err) { console.log('Socket Wrench error', err); });
+      // w.on('message', function (e) { console.log('the Socket Wrench has received a message', e); });
 
-        w.on('ready', function () {
-          console.log('Socket is ready');
-        });
+      // w.send({ message: "test-1" });
+      // w.send({ message: "test-2" });
+      // w.send({ message: "test-3" });
+      // w.send({ message: "test-4" });
+      // w.send({ message: "test-5" });
+      // w.send({ message: "test-6" });
+      // w.send({ message: "test-7" });
+      // w.send({ message: "test-8" });
+      // w.send({ message: "test-9" });
+      // w.send({ message: "test-10" });
 
-        w.on('fail', function (attempts) {
-          console.log('fail', attempts);
-        });
+      // // to test message buffer
+      // setTimeout(function () {
+      //   w.open();
+      // }, 2000);
 
-        w.on('error', function (err) {
-          console.log('Socket Wrench error', err);
-        });
-
-
-        // w.on('message', function (e) {
-        //   console.log('the Socket Wrench has received a message');
-        //   console.log(e);
-        // });
-
-        w.send({ message: "test-1" });
-        w.send({ message: "test-2" });
-        w.send({ message: "test-3" });
-        w.send({ message: "test-4" });
-        w.send({ message: "test-5" });
+      // messageButton.addEventListener('click', function (e) {
+      //   w.send({ message: "message" });
+      // });
 
 
-        w.send({ message: "test-6" });
-        w.send({ message: "test-7" });
-        w.send({ message: "test-8" });
-        w.send({ message: "test-9" });
-        w.send({ message: "test-10" });
+      window.testPingSocket = new Wrench('ws://localhost:4015');
 
-        setTimeout(function () {
-          w.open();
-        }, 2000);
-
-        messageButton.addEventListener('click', function (e) {
-          w.send({ message: "message" });
-        })
+      testPingSocket.on('message', function (e) { console.log(e) });
     });
   </script>
 </body>
