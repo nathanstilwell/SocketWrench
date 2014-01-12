@@ -1,5 +1,4 @@
-/*global describe: false, it: false, expect: false, waits: false, beforeEach: false, runs: false */
-/*global loadFixtures: false, $: false, spyOn: false, define: false */
+/*global describe: false, it: false, expect: false, beforeEach: false, SocketWrench: false */
 
 describe('Socket Wrench', function () {
   beforeEach(function () {
@@ -11,5 +10,6 @@ describe('Socket Wrench', function () {
 
   it('should be defined', function () {
     expect(typeof this.wrench).toBe('object');
+    expect(typeof sinon).toBe('object');
   });
 }); // describe Socket Wrench
