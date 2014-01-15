@@ -40,6 +40,15 @@ module.exports = function(grunt) {
       }
     },
 
+    jasmine: {
+      taskName: {
+        src: [ 'lib/**/*.js', 'vendor/sinon-1.7.3.js' ],
+        options: {
+          specs: 'spec/*.js'
+        }
+      }
+    },
+
     watch: {
       gruntfile: {
         files: '<%= jshint.gruntfile.src %>',
@@ -47,11 +56,11 @@ module.exports = function(grunt) {
       },
       lib: {
         files: '<%= jshint.lib.src %>',
-        tasks: ['jshint:lib']
+        tasks: ['jshint:lib', 'test']
       },
       spec: {
         files: '<%= jshint.spec.src %>',
-        tasks: ['jshint:spec']
+        tasks: ['jshint:spec', 'test']
       }
     }
   });
@@ -59,7 +68,10 @@ module.exports = function(grunt) {
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
+  grunt.loadNpmTasks('grunt-contrib-jasmine');
   grunt.loadNpmTasks('grunt-contrib-watch');
+
+  grunt.registerTask('test', ['jasmine']);
 
   // Default task.
   grunt.registerTask('default', ['connect', 'watch']);
