@@ -74,5 +74,5 @@ module.exports = function(grunt) {
   grunt.registerTask('test', ['jasmine']);
 
   // Default task.
-  grunt.registerTask('default', ['connect', 'watch']);
+  grunt.registerTask('default', ['connect', 'watch', 'test']);
 };
