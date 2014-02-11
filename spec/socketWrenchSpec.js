@@ -13,7 +13,7 @@ describe('Socket Wrench', function () {
   'use strict';
   beforeEach(function () {
     this.defaults = {
-      socketUrl : 'ws://localhost:4014',
+      url : 'ws://localhost:4014',
       autoConnect : false
     };
   });
@@ -47,17 +47,21 @@ describe('Socket Wrench', function () {
     });
   });
 
-
   // .isReady
   describe('.isReady', function () {
+    it('should be a function', function () {
+      var wrench = new SocketWrench(this.defaults);
+      expect(typeof wrench.isReady).toBe('function');
+    });
+
     it('returns false when the socket does not exist', function () {
-      var wrench = new SocketWrench({ autoConnect: false });
-      expect( wrench.isReady() ).toBe( false );
+      var wrench = new SocketWrench(this.defaults);
+      expect(wrench.isReady()).toBe( false );
     });
 
     it('returns false when the socket is not ready', function () {
-      var wrench = new SocketWrench({ autoConnect: false });
-      expect( wrench.isReady() ).toBe( false );
+      var wrench = new SocketWrench(this.defaults);
+      expect(wrench.isReady()).toBe( false );
     });
   });
 

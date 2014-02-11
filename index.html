@@ -39,7 +39,6 @@
 
     <h1 class="header">Socket Wrench</h1>
     <h2 class="subhead">open your console</h2>
-    <button id="send-message">Send Message</button>
 
   </section></section> <!-- containers -->
 
@@ -48,9 +47,8 @@
     // require.config({});
 
     require(['lib/socket-wrench'], function (Wrench) {
-      window.w = new Wrench({
-        socketUrl : 'ws://localhost:4014',
-        autoConnect : false
+      var wrench = new Wrench({
+        url : 'ws://localhost:4014',
       });
     });
   </script>

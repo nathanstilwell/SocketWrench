@@ -13,13 +13,13 @@
 or
 
     var socket = new SocketWrench({
-      socketUrl : "ws://freefallws.gilt.com/connect"
+      url : "ws://freefallws.gilt.com/connect"
     });
 
 or
 
     var socket = new SocketWrench({
-      socketUrl : "ws://freefallws.gilt.com/connect",
+      url : "ws://freefallws.gilt.com/connect",
       connectionData: {
         eventId : id,
         historySize : size
@@ -73,7 +73,7 @@ After creating a new Socket Wrench if WebSocket isn't supported the returned obj
 The websocket will be connected on creation. If you don't want the socket to open automatically, set autoConnect to false.
 
     socket = new SocketWrench({
-      socketUrl : "ws://localhost:4014",
+      url : "ws://localhost:4014",
       autoConnect : false
     });
 
@@ -125,7 +125,7 @@ a generic 'message' messageType and pass Message.data to the callback
 If you need to receive the entire MessageEvent and not just the data, set `sendFullMessages` to true in the configuration
 
     socket = new SocketWrench({
-      socketUrl : "ws://localhost:4014",
+      url : "ws://localhost:4014",
       sendFullMessages: true
     });
 
@@ -169,7 +169,7 @@ To give your server the opportunity to close abandoned connections, Socket Wrenc
 You may override what this message looks like (as JSON if you like) and the interval by passing in config options.
 
     var socket = new SocketWrench({
-      socketUrl: 'ws://my-socket-server.com',
+      url: 'ws://my-socket-server.com',
       heartbeatInterval: 60000, // in milliseconds
       heartbeatMessage : {
         status : 'still alive',
