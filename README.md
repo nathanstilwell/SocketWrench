@@ -8,17 +8,17 @@
 
 ### Create a new SocketWrench
 
-    var socket = new SocketWrench("ws://freefallws.gilt.com/connect");
+    var wrench = new SocketWrench("ws://freefallws.gilt.com/connect");
 
 or
 
-    var socket = new SocketWrench({
+    var wrench = new SocketWrench({
       url : "ws://freefallws.gilt.com/connect"
     });
 
 or
 
-    var socket = new SocketWrench({
+    var wrench = new SocketWrench({
       url : "ws://freefallws.gilt.com/connect",
       connectionData: {
         eventId : id,
@@ -71,24 +71,24 @@ Make sure you check if Websockets are supported.
       // provide a fallback
     }
 
-### Open Socket Connection Manually
+### Open SocketWrench Connection Manually
 
-    socket.open();
+    wrench.open();
 
-The websocket will be connected on creation. If you don't want the socket to open automatically, set autoConnect to false.
+The WebSocket will be connected on creation. If you don't want the WebSocket to open automatically, set autoConnect to false.
 
-    socket = new SocketWrench({
+    wrench = new SocketWrench({
       url : "ws://localhost:4014",
       autoConnect : false
     });
 
     // when you're ready
 
-    socket.open();
+    wrench.open();
 
 ### On Connection
 
-    socket.on('open', function () {
+    wrench.on('open', function () {
       console.log("it's connected");
     });
 
@@ -111,59 +111,59 @@ Messages in WebSocket use the [MessageEvent](http://www.w3.org/TR/2008/WD-html5-
 
 SocketWrench will look for this property, and if found will emit an event of that type and pass MessageEvent.data to the callback
 
-    socket.on('messageType', function (messageData) {
+    wrench.on('messageType', function (messageData) {
       // do stuff with message
     });
 
-    socket.on('PriceChange', priceController.setPriceChange);
-    socket.on('Time', clocks.setTime);
-    socket.on('inventoryStatus', inventoryStatus.update)
+    wrench.on('PriceChange', priceController.setPriceChange);
+    wrench.on('Time', clocks.setTime);
+    wrench.on('inventoryStatus', inventoryStatus.update)
 
 If your app doesn't follow this convention and leaves off
 a 'type' property on MessageEvent.data, SocketWrench will emit
 a generic 'message' messageType and pass Message.data to the callback
 
-    socket.on('message', function myMessageHandler (data) {
+    wrench.on('message', function myMessageHandler (data) {
       // stuff with message data
     });
 
 If you need to receive the entire MessageEvent and not just the data, set `sendFullMessages` to true in the configuration
 
-    socket = new SocketWrench({
+    wrench = new SocketWrench({
       url : "ws://localhost:4014",
       sendFullMessages: true
     });
 
 ## Closing WebSocket Connection
 
-If your socket connection is closed, SocketWrench will attempt to reconnect the number of times specified by `retryAttempts` in the configuration. If you would to explicitly close the socket connection you can do so by calling `socket.close()`.
+If your WebSocket connection is closed, SocketWrench will attempt to reconnect the number of times specified by `retryAttempts` in the configuration. If you want to explicitly close the WebSocket connection you can do so by calling `wrench.close()`.
 
 ### On Close
 
-A 'close' message is published so you can respond once the socket
+A 'close' message is published so you can respond once the WebSocket
 connection is closed.
 
-    socket.on(`close`, function () {
+    wrench.on(`close`, function () {
       // do something on close
     });
 
 ### Respond to failure
 
-If the socket connection is closed without you requesting it, a `fail`
-event will be published along with the number of times the socket has
+If the WebSocket connection is closed without you requesting it, a `fail`
+event will be published along with the number of times the SocketWrench has
 attempted to reconnect.
 
-    socket.on('fail', function (retryCount) {
+    wrench.on('fail', function (retryCount) {
       // respond to failure
     });
 
-When the connection is lost the socket will attempt to reconnect the
+When the connection is lost SocketWrench will attempt to reconnect the
 number of times specified by the `retryAttempts` options. The default is 5. The retryAttempts will "decay" or will wait longer each time it tries to reconnect until it runs out of retryAttempts.
 
-If the socket has attempted reconnect the maximum number of times, an
+If SocketWrench has attempted reconnect the maximum number of times, an
 `error` event is emitted.
 
-    socket.on('error', function (err) {
+    wrench.on('error', function (err) {
       // All attempts to reconnect failed
     });
 
@@ -173,7 +173,7 @@ To give your server the opportunity to close abandoned connections, SocketWrench
 
 You may override what this message looks like (as JSON if you like) and the interval by passing in config options.
 
-    var socket = new SocketWrench({
+    var wrench = new SocketWrench({
       url: 'ws://my-socket-server.com',
       heartbeatInterval: 60000, // in milliseconds
       heartbeatMessage : {
