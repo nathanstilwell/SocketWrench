@@ -1,7 +1,7 @@
 {
   "name": "socket-wrench",
   "author": "Nathan Stilwell",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.3.1",

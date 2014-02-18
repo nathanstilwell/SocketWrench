@@ -56,15 +56,20 @@ Options and Defaults
     wrench.send(message);
       // Send a message to the server
     wrench.supported;
+    SocketWrench.supported;
       // Check to see if WebSocket is supported. This is a Boolean
 
 ## Get Started
 
 ### Test for Websocket Support
 
-After creating a new Socket Wrench if WebSocket isn't supported the returned object will have a property of `supported` that is set to false to allow you to implement a fallback
+Make sure you check if Websockets are supported.
 
-    socket.supported; // Boolean
+    if (SocketWrench.supported) { // Boolean
+      // have fun!
+    } else {
+      // provide a fallback
+    }
 
 ### Open Socket Connection Manually
 

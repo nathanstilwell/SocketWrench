@@ -26,16 +26,23 @@ describe('Socket Wrench', function () {
 
   // .supported
   describe('.supported', function () {
-    it('detects absence of support', function () {
-      window.WebSocket = undefined;
-      var wrench = new SocketWrench( this.defaults );
-      expect( wrench.supported ).toBe( false );
+    describe('detects absence of support', function () {
+      it('on a new SocketWrench', function () {
+        window.WebSocket = undefined;
+        var wrench = new SocketWrench( this.defaults );
+        expect(wrench.supported).toBe(false);
+      });
     });
 
-    it('detects presence of support', function () {
-        window.WebSocket = true;
-        var wrench = new SocketWrench( this.defaults );
-        expect( wrench.supported ).toBe( true );
+    describe('detects presence of support', function () {
+      it('on the SocketWrench constructor', function () {
+        expect(SocketWrench.supported).toBe(true);
+      });
+
+      it('on a new SocketWrench', function () {
+          var wrench = new SocketWrench( this.defaults );
+          expect(wrench.supported).toBe(true);
+      });
     });
 
     beforeEach(function () {
