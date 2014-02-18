@@ -1,8 +1,8 @@
-# Socket Wrench
+# SocketWrench
 
 *A tool to use Web Sockets*
 
-**Socket Wrench** is a light wrapper around native WebSockets that provides a slightly sexier api and a little more convinience.
+**SocketWrench** is a light wrapper around native WebSockets that provides a slightly sexier api and a little more convinience.
 
 ## How to use this
 
@@ -39,7 +39,7 @@ Options and Defaults
     sendFullMessages : false,
     autoConnect : true
 
-### Socket Wrench API
+### SocketWrench API
 
     var wrench = new SocketWrench('ws://some-web-socket.com');
 
@@ -109,7 +109,7 @@ Messages in WebSocket use the [MessageEvent](http://www.w3.org/TR/2008/WD-html5-
       type: "message"
     }
 
-Socket Wrench will look for this property, and if found will emit an event of that type and pass MessageEvent.data to the callback
+SocketWrench will look for this property, and if found will emit an event of that type and pass MessageEvent.data to the callback
 
     socket.on('messageType', function (messageData) {
       // do stuff with message
@@ -120,7 +120,7 @@ Socket Wrench will look for this property, and if found will emit an event of th
     socket.on('inventoryStatus', inventoryStatus.update)
 
 If your app doesn't follow this convention and leaves off
-a 'type' property on MessageEvent.data, Socket Wrench will emit
+a 'type' property on MessageEvent.data, SocketWrench will emit
 a generic 'message' messageType and pass Message.data to the callback
 
     socket.on('message', function myMessageHandler (data) {
@@ -136,7 +136,7 @@ If you need to receive the entire MessageEvent and not just the data, set `sendF
 
 ## Closing WebSocket Connection
 
-If your socket connection is closed, Socket Wrench will attempt to reconnect the number of times specified by `retryAttempts` in the configuration. If you would to explicitly close the socket connection you can do so by calling `socket.close()`.
+If your socket connection is closed, SocketWrench will attempt to reconnect the number of times specified by `retryAttempts` in the configuration. If you would to explicitly close the socket connection you can do so by calling `socket.close()`.
 
 ### On Close
 
@@ -169,7 +169,7 @@ If the socket has attempted reconnect the maximum number of times, an
 
 ## Heartbeats
 
-To give your server the opportunity to close abandoned connections, Socket Wrench will send a heartbeat at the configured interval. By default Socket Wrench will send a "pong" to the server every 30 seconds as well as repond to a "ping" message with a "pong".
+To give your server the opportunity to close abandoned connections, SocketWrench will send a heartbeat at the configured interval. By default SocketWrench will send a "pong" to the server every 30 seconds as well as repond to a "ping" message with a "pong".
 
 You may override what this message looks like (as JSON if you like) and the interval by passing in config options.
 
