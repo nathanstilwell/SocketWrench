@@ -157,8 +157,7 @@ attempted to reconnect.
       // respond to failure
     });
 
-When the connection is lost SocketWrench will attempt to reconnect the
-number of times specified by the `retryAttempts` options. The default is 5. The retryAttempts will "decay" or will wait longer each time it tries to reconnect until it runs out of retryAttempts.
+When the connection is lost SocketWrench will attempt to reconnect the number of times specified by the `retryAttempts` options. The default is 8. The retryAttempts will "decay" (using fibonacci numbers) or will wait longer each time it tries to reconnect until it runs out of retryAttempts.
 
 If SocketWrench has attempted reconnect the maximum number of times, an
 `error` event is emitted.
