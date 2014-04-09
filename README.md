@@ -181,3 +181,7 @@ You may override what this message looks like (as JSON if you like) and the inte
         outlookOnLife : 'good'
       }
     });
+
+## Running Tests
+
+I'm using Grunt + Phantom + Jasmine for tests. Since I haven't quite got the hang of mocking a Socket yet, I'm just using a real one. So when you run `grunt test` on this project, it will expect to connect to a web-socket on `ws://localhost:4014`. If you don't want to write you own socket, you can use my [Socket Lab](https://github.com/upright-netizen/socket-lab) project to run the tests that require a socket connection.

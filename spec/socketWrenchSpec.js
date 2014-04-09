@@ -2,6 +2,8 @@
 /*global
   describe: false,
   it: false,
+  runs: false,
+  waitsFor: false,
   expect: false,
   beforeEach: false,
   afterEach: false,
@@ -21,7 +23,6 @@ describe('Socket Wrench', function () {
   it('should be defined', function () {
     var wrench = new SocketWrench( this.defaults );
     expect(typeof wrench).toBe('object');
-    expect(typeof sinon).toBe('object');
   });
 
   // .supported
@@ -62,13 +63,29 @@ describe('Socket Wrench', function () {
     });
 
     it('returns false when the socket does not exist', function () {
+      this.wsValue = window.WebSocket;
+      window.WebSocket = null;
       var wrench = new SocketWrench(this.defaults);
-      expect(wrench.isReady()).toBe( false );
+      expect(wrench.isReady()).toBe(false);
+      window.WebSocket = this.wsValue;
     });
 
     it('returns false when the socket is not ready', function () {
       var wrench = new SocketWrench(this.defaults);
-      expect(wrench.isReady()).toBe( false );
+      expect(wrench.isReady()).toBe(false);
+    });
+
+    it('returns true when the socket is ready', function () {
+      var wrench = new SocketWrench(this.defaults);
+      wrench.open();
+
+      waitsFor(function () {
+        return wrench.isReady();
+      }, 4000);
+
+      runs(function () {
+        expect(wrench.isReady()).toBe(true);
+      });
     });
   });
 
@@ -98,5 +115,4 @@ describe('Socket Wrench', function () {
       expect(testFoobar.c()).toBe(foobar.c());
     });
   });
-
 }); // describe Socket Wrench
