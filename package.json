@@ -2,6 +2,9 @@
   "name": "socketwrench",
   "author": "Nathan Stilwell",
   "version": "0.5.1",
+  "scripts": {
+    "test": "grunt test"
+  },
   "devDependencies": {
     "grunt": "~0.4.1",
     "grunt-contrib-watch": "~0.3.1",
