@@ -1,7 +1,7 @@
 {
   "name": "socketwrench",
   "author": "Nathan Stilwell",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "scripts": {
     "test": "grunt test"
   },
