@@ -1,8 +1,8 @@
 {
-  "name": "SocketWrench",
+  "name": "socketwrench",
   "author": "Nathan Stilwell",
   "email": "nathanstilwell@gmail.com",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "scripts": {
     "test": "gulp"
   },
