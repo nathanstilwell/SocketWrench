@@ -1,0 +1,7 @@
+.npmignore
+npm-debug.log
+.git*
+test/
+gulp/
+gulpfile.js
+karma.conf.js
