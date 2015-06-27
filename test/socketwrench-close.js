@@ -1,14 +1,5 @@
 /*jshint eqnull: true, browser: true */
-/*global
-  describe: false,
-  it: false,
-  expect: false,
-  beforeEach: false,
-  runs: false,
-  waits: false,
-  waitsFor: false,
-  SocketWrench: false
-*/
+/*global describe, it, expect, beforeEach, SocketWrench */
 describe('Socket Wrench - Prototype Functions', function () {
   'use strict';
 
@@ -26,7 +17,7 @@ describe('Socket Wrench - Prototype Functions', function () {
     expect(typeof wrench.close).toBe('function');
   });
 
-  it('should emit an error if you close a socket that isn\'t ready', function () {
+  it('should emit an error if you close a socket that isn\'t ready', function (done) {
     var
       wrench = new SocketWrench(this.defaults),
       error;
@@ -38,13 +29,10 @@ describe('Socket Wrench - Prototype Functions', function () {
     wrench.open();
     wrench.close();
 
-    waitsFor(function () {
-      return error === 'Tried to close socket before ready';
-    }, 4000);
-
-    runs(function () {
+    setTimeout(function () {
       expect(error).toBe('Tried to close socket before ready');
-    });
+      done();
+    }, 4000);
   });
 
 }); // describe

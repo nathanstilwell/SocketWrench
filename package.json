@@ -1,15 +1,39 @@
 {
-  "name": "socketwrench",
+  "name": "SocketWrench",
   "author": "Nathan Stilwell",
+  "email": "nathanstilwell@gmail.com",
   "version": "0.5.2",
   "scripts": {
-    "test": "grunt test"
+    "test": "gulp"
   },
   "devDependencies": {
-    "grunt": "~0.4.1",
-    "grunt-contrib-watch": "~0.3.1",
-    "grunt-contrib-connect": "~0.2.0",
-    "grunt-contrib-jshint": "~0.3.0",
-    "grunt-contrib-jasmine": "~0.5.2"
+    "gulp": "^3.8.11",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.12.37",
+    "karma-jasmine": "^0.3.5",
+    "karma-phantomjs-launcher": "^0.2.0",
+    "phantomjs": "^1.9.17",
+    "require-dir": "^0.3.0",
+    "ws": "^0.7.2"
+  },
+  "description": "*A tool to use Web Sockets*",
+  "main": "lib/socketwrench.js",
+  "dependencies": {},
+  "readmeFilename": "README.md",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nathanstilwell/socket-wrench.git"
+  },
+  "keywords": [
+    "WebSocket",
+    "full-duplex",
+    "rfc-6455",
+    "ws",
+    "socketwrench",
+    "SocketWrench"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/nathanstilwell/socket-wrench/issues"
   }
 }
