@@ -1,12 +1,5 @@
 /*jshint eqnull: true, browser: true */
-/*global
-  describe: false,
-  it: false,
-  expect: false,
-  waits: false,
-  beforeEach: false,
-  SocketWrench: false
-*/
+/*global describe, it, expect, beforeEach, SocketWrench*/
 describe('Socket Wrench - Prototype Functions', function () {
   'use strict';
 
@@ -23,30 +16,33 @@ describe('Socket Wrench - Prototype Functions', function () {
       expect(typeof wrench.emit).toBe('function');
     });
 
-    it('should call all registered callbacks when event was emitted', function () {
-      var
-        wrench = new SocketWrench(this.defauls),
-        events = {},
-        testEmitted = false;
+   it('should call all registered callbacks when event was emitted', function (done) {
+     var
+       wrench = new SocketWrench(this.defaults),
+       events = {},
+       testEmitted = false;
 
-      this.on = function on (event, callback) {
-        (events[event] = events[event] || []).push(callback);
-        return [event, callback];
-      };
-      this.whenTestIsEmitted = function  () {
-        testEmitted = true;
-      };
+     this.on = function on (event, callback) {
+       (events[event] = events[event] || []).push(callback);
+       return [event, callback];
+     };
+     this.whenTestIsEmitted = function  () {
+       testEmitted = true;
+     };
 
-      // register callbacks
-      this.on('test', this.whenTestIsEmitted);
+     // register callbacks
+     this.on('test', this.whenTestIsEmitted);
 
-      expect(events.test.length).toBe(1);
-      expect(typeof events.test[0]).toBe('function');
-      wrench.emit(events, 'test');
-      waits(1000);
-      expect(testEmitted).toBe(true);
-    });
-  });
+     expect(events.test.length).toBe(1);
+     expect(typeof events.test[0]).toBe('function');
+     wrench.emit(events, 'test');
+
+     setTimeout(function () {
+       expect(testEmitted).toBe(true);
+       done();
+     }, 1000);
+   });
+ });
 
   describe('extend prototype function', function () {
     it('should have a function named extend on it\'s prototype', function () {
@@ -83,6 +79,9 @@ describe('Socket Wrench - Prototype Functions', function () {
 
     it('should return fibonacci numbers', function () {
       var num;
+
+      // Make sure fibonacci is reset
+      wrench.fibonacci('reset');
 
       num = wrench.fibonacci();
       expect(num).toBe(1);

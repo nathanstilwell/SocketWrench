@@ -1,13 +1,5 @@
 /*jshint eqnull: true, browser: true */
-/*global
-  describe: false,
-  it: false,
-  expect: false,
-  beforeEach: false,
-  afterEach: false,
-  SocketWrench: false,
-  window: false
-*/
+/*global describe, it, expect, beforeEach, afterEach, SocketWrench, window*/
 
 describe('Socket Wrench - Supported Property', function () {
   'use strict';
