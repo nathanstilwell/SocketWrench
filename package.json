@@ -2,7 +2,7 @@
   "name": "socketwrench",
   "author": "Nathan Stilwell",
   "email": "nathanstilwell@gmail.com",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "scripts": {
     "test": "gulp"
   },
