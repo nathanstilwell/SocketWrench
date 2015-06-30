@@ -1,0 +1,37 @@
+{
+  "name": "SocketWrench",
+  "version": "0.5.4",
+  "homepage": "https://github.com/nathanstilwell/socketwrench",
+  "authors": [
+    "Nathan Stilwell"
+  ],
+  "description": "A tool to use Web Sockets",
+  "main": "lib/socketwrench.js",
+  "moduleType": [
+    "amd",
+    "commonJS",
+    "globals"
+  ],
+  "keywords": [
+    "WebSocket",
+    "full-duplex",
+    "rfc-6455",
+    "ws",
+    "socketwrench",
+    "SocketWrench"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "**/*.log",
+    "node_modules",
+    "package.json",
+    "bower_components",
+    "test",
+    "tests",
+    "gulp",
+    "gulpfile.js",
+    "karma.conf.js",
+    "CONTRIBUTING.md"
+  ]
+}
