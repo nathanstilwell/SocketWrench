@@ -1,6 +1,6 @@
 # SocketWrench
 
-*A tool to use Web Sockets*
+[![npm](https://img.shields.io/npm/v/socketwrench.svg)]() [![Bower](https://img.shields.io/bower/v/socketwrench.svg)]() [![David](https://img.shields.io/david/nathanstilwell/socketwrench.svg)]() [![David](https://img.shields.io/david/dev/nathanstilwell/socketwrench.svg)]()
 
 **SocketWrench** is a light wrapper around native WebSockets that provides a slightly sexier api and a little more convinience.
 
