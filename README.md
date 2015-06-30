@@ -1,6 +1,6 @@
 # SocketWrench
-
-[![npm](https://img.shields.io/npm/v/socketwrench.svg)]() [![Bower](https://img.shields.io/bower/v/socketwrench.svg)]() [![David](https://img.shields.io/david/nathanstilwell/socketwrench.svg)]() [![David](https://img.shields.io/david/dev/nathanstilwell/socketwrench.svg)]()
+[![CircleCi](https://circleci.com/gh/nathanstilwell/SocketWrench.svg?style=shield&circle-token=ae9a18d4c0dcc67575ec1a98570a07974b6aabcf)]()
+[![npm](https://img.shields.io/npm/v/socketwrench.svg?style=plastic)]() [![Bower](https://img.shields.io/bower/v/socketwrench.svg?style=plastic)]() [![David](https://img.shields.io/david/nathanstilwell/socketwrench.svg?style=plastic)]() [![David](https://img.shields.io/david/dev/nathanstilwell/socketwrench.svg?style=plastic)]()
 
 **SocketWrench** is a light wrapper around native WebSockets that provides a slightly sexier api and a little more convinience.
 
