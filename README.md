@@ -4,6 +4,39 @@
 
 **SocketWrench** is a light wrapper around native WebSockets that provides a slightly sexier api and a little more convinience.
 
+## Example
+
+```javascript
+  // Example based on https://www.websocket.org/echo.html
+  var wrench = new SocketWrench('ws://echo.websocket.org/');
+
+  wrench.on('open', function () {
+    console.log('CONNECTED');
+    wrench.send('WebSocket rocks');
+  });
+
+  wrench.on('message', function (MessageEventData) {
+    console.log(MessageEventData);
+  });
+
+  wrench.on('messageType', function (MessageEventData) {
+    console.log(MessageEventData);
+  });
+
+  wrench.on('close', function () {
+    console.log('DISCONNECTED');
+  });
+```
+
+## Install
+
+with [Bower](http://bower.io/): `bower install socketwrench`
+
+with [npm](https://www.npmjs.com/package/socketwrench): `npm install socketwrench`
+
+Download File: [socketwrench.js](https://raw.githubusercontent.com/nathanstilwell/SocketWrench/master/lib/socketwrench.js)
+
+
 ## How to use this
 
 ### Create a new SocketWrench
