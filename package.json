@@ -9,6 +9,7 @@
   "devDependencies": {
     "gulp": "^3.8.11",
     "gulp-coveralls": "^0.1.4",
+    "gulp-util": "^3.0.6",
     "jasmine-core": "^2.3.4",
     "karma": "^0.12.37",
     "karma-coverage": "^0.4.2",
