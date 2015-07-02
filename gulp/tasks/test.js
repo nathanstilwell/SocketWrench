@@ -5,6 +5,7 @@
 var path = require('path');
 var root = path.join(__dirname, '../..');
 var gulp = require('gulp');
+var coveralls = require('gulp-coveralls');
 var karma = require('karma').server;
 var testSocket = require(path.join(root,'test/testSocket/'));
 
@@ -19,3 +20,6 @@ gulp.task('test', function (done) {
     done();
   });
 });
+
+gulp.src('test/coverage/**/lcov.info')
+  .pipe(coveralls());
