@@ -1,4 +1,4 @@
-/*global require, __dirname */
+/*global require, __dirname, process */
 
 'use strict';
 
@@ -9,6 +9,13 @@ var coveralls = require('gulp-coveralls');
 var gutil = require('gulp-util');
 var karma = require('karma').server;
 var testSocket = require(path.join(root,'test/testSocket/'));
+var env = process.env.NODE_ENV || 'development';
+
+function reportCoverageToCoveralls () {
+  gutil.log('Sending LCOV data to Coveralls.io');
+  gulp.src('test/coverage/**/lcov.info')
+    .pipe(coveralls());
+}
 
 gulp.task('test', function (done) {
   testSocket.start();
@@ -18,9 +25,9 @@ gulp.task('test', function (done) {
     singleRun: true
   }, function () {
     testSocket.stop();
-    gutil.log('Sending LCOV data to Coveralls.io');
-    gulp.src('test/coverage/**/lcov.info')
-      .pipe(coveralls());
+    if ('ci' === env) {
+      reportCoverageToCoveralls();
+    }
     done();
   });
 });
