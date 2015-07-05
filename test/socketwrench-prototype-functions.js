@@ -22,20 +22,25 @@ describe('Socket Wrench - Prototype Functions', function () {
        events = {},
        testEmitted = false;
 
-     this.on = function on (event, callback) {
+     function on (event, callback) {
        (events[event] = events[event] || []).push(callback);
        return [event, callback];
-     };
-     this.whenTestIsEmitted = function  () {
+     }
+
+     function whenTestIsEmitted () {
        testEmitted = true;
-     };
+     }
 
      // register callbacks
-     this.on('test', this.whenTestIsEmitted);
+     on('test', whenTestIsEmitted);
+     on('test', function someOtherTestFunction () {
+      return true; // just some nonsense
+     });
 
-     expect(events.test.length).toBe(1);
+     expect(events.test.length).toBe(2);
      expect(typeof events.test[0]).toBe('function');
      wrench.emit(events, 'test');
+     // include some 'hasBeenCalled' checks in here
 
      setTimeout(function () {
        expect(testEmitted).toBe(true);

@@ -1,5 +1,5 @@
 /*jshint eqnull: true, browser: true */
-/*global describe, it, expect, beforeEach, SocketWrench, window*/
+/*global describe, it, expect, beforeEach, afterEach, SocketWrench, window*/
 
   // .isReady
 describe('.isReady', function () {
@@ -10,6 +10,11 @@ describe('.isReady', function () {
       url : 'ws://localhost:4014',
       autoConnect : false
     };
+    this.wsValue = window.WebSocket;
+  });
+
+  afterEach(function () {
+    window.WebSocket = this.wsValue;
   });
 
   it('should be a function', function () {
@@ -18,11 +23,9 @@ describe('.isReady', function () {
   });
 
   it('returns false when the socket does not exist', function () {
-    this.wsValue = window.WebSocket;
     window.WebSocket = null;
     var wrench = new SocketWrench(this.defaults);
     expect(wrench.isReady()).toBe(false);
-    window.WebSocket = this.wsValue;
   });
 
   it('returns false when the socket is not ready', function () {
