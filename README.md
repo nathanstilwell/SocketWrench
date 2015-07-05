@@ -31,9 +31,9 @@
 
 ## Install
 
-with [Bower](http://bower.io/): `bower install socketwrench`
+with [Bower](http://bower.io/): ` bower install socketwrench `
 
-with [npm](https://www.npmjs.com/package/socketwrench): `npm install socketwrench`
+with [npm](https://www.npmjs.com/package/socketwrench): ` npm install socketwrench `
 
 Download File: [socketwrench.js](https://raw.githubusercontent.com/nathanstilwell/SocketWrench/master/lib/socketwrench.js)
 

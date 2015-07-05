@@ -51,3 +51,4 @@ Taking a hint from [other projects](https://github.com/atom/atom/blob/master/CON
 + :art: `:art:` - When refactoring
 + :shirt: `:shirt:` - When removing linter warnings
 + :nut_and_bolt: `:nut_and_bolt:` - When working on the build tools
++ :up: `:up:` - When upgrading dependencies
