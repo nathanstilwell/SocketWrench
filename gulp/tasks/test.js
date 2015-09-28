@@ -7,7 +7,7 @@ var root = path.join(__dirname, '../..');
 var gulp = require('gulp');
 var coveralls = require('gulp-coveralls');
 var gutil = require('gulp-util');
-var karma = require('karma').server;
+var Server = require('karma').Server;
 var testSocket = require(path.join(root,'test/testSocket/'));
 var env = process.env.NODE_ENV || 'development';
 
@@ -18,9 +18,10 @@ function reportCoverageToCoveralls () {
 }
 
 gulp.task('test', function (done) {
+  var server;
   testSocket.start();
 
-  karma.start({
+  server = new Server({
     configFile: path.join(root, 'karma.conf.js'),
     singleRun: true
   }, function () {
@@ -30,4 +31,6 @@ gulp.task('test', function (done) {
     }
     done();
   });
+
+  server.start();
 });

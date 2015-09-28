@@ -11,13 +11,13 @@
     "gulp-coveralls": "^0.1.4",
     "gulp-util": "^3.0.6",
     "jasmine-core": "^2.3.4",
-    "karma": "^0.12.37",
-    "karma-coverage": "^0.4.2",
+    "karma": "^0.13.10",
+    "karma-coverage": "^0.5.2",
     "karma-jasmine": "^0.3.5",
     "karma-phantomjs-launcher": "^0.2.0",
     "phantomjs": "^1.9.17",
     "require-dir": "^0.3.0",
-    "ws": "^0.7.2"
+    "ws": "^0.8.0"
   },
   "description": "*A tool to use Web Sockets*",
   "main": "lib/socketwrench.js",
