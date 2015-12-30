@@ -17,7 +17,7 @@
     "karma-phantomjs-launcher": "^0.2.0",
     "phantomjs": "^1.9.17",
     "require-dir": "^0.3.0",
-    "ws": "^0.8.0"
+    "ws": "^1.0.0"
   },
   "description": "*A tool to use Web Sockets*",
   "main": "lib/socketwrench.js",
