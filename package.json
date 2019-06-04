@@ -2,23 +2,9 @@
   "name": "socketwrench",
   "author": "Nathan Stilwell",
   "email": "nathanstilwell@gmail.com",
-  "version": "0.6.0",
-  "scripts": {
-    "test": "gulp test"
-  },
-  "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-util": "^3.0.6",
-    "jasmine-core": "^2.3.4",
-    "karma": "^0.13.19",
-    "karma-coverage": "^0.5.2",
-    "karma-jasmine": "^0.3.5",
-    "karma-phantomjs-launcher": "^0.2.0",
-    "phantomjs": "^1.9.17",
-    "require-dir": "^0.3.0",
-    "ws": "^1.0.0"
-  },
+  "version": "0.6.1",
+  "scripts": {},
+  "devDependencies": {},
   "description": "*A tool to use Web Sockets*",
   "main": "lib/socketwrench.js",
   "dependencies": {},

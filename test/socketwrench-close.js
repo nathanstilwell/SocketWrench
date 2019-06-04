@@ -30,7 +30,7 @@ describe('Socket Wrench - Prototype Functions', function () {
     wrench.close();
 
     setTimeout(function () {
-      expect(error).toBe('Tried to close socket before ready');
+      expect(error.message).toBe('Tried to close socket before ready');
       done();
     }, 4000);
   });
