@@ -2,22 +2,19 @@
   "name": "socketwrench",
   "author": "Nathan Stilwell",
   "email": "nathanstilwell@gmail.com",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "scripts": {
-    "test": "gulp test"
+    "test": "cross-env NODE_ENV=test karma start karma.conf.js --single-run"
   },
   "devDependencies": {
-    "gulp": "^3.8.11",
-    "gulp-coveralls": "^0.1.4",
-    "gulp-util": "^3.0.6",
-    "jasmine-core": "^2.3.4",
-    "karma": "^0.13.19",
-    "karma-coverage": "^0.5.2",
-    "karma-jasmine": "^0.3.5",
-    "karma-phantomjs-launcher": "^0.2.0",
-    "phantomjs": "^1.9.17",
-    "require-dir": "^0.3.0",
-    "ws": "^1.0.0"
+    "cross-env": "^5.2.0",
+    "jasmine-core": "^3.4.0",
+    "karma": "^4.1.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-jasmine": "^2.0.1",
+    "puppeteer": "^1.17.0",
+    "ws": "^7.0.0"
   },
   "description": "*A tool to use Web Sockets*",
   "main": "lib/socketwrench.js",
